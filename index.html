@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhập liệu thẻ sinh viên</title>
+    <style>
+        :root {
+            --fpt-orange: #FF6600;
+            --fpt-blue: #004d99;
+            --bg-color: #f8f9fb;
+            --text-dark: #333;
+        }
+
+        body { 
+            /* Đồng nhất Font chữ với card.html */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; 
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--bg-color); 
+        }
+
+        .app-header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            background-color: #ffffff;
+            align-items: center;
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .fpt-edu-top img {
+            height: 30px;
+        }
+
+        .box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            width: 340px; 
+            text-align: center;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--fpt-orange);
+            outline: none;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: var(--fpt-orange); 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #e65c00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <div class="fpt-edu-top">
+            <img src="FPT_Polytechnic.png" alt="Logo">
+        </div>
+        <div style="font-size: 12px; color: #888;">Hệ thống tạo thẻ tạm</div>
+    </div>
+
+    <div class="box">
+        <h3>Thông Tin Thẻ</h3>
+        
+        <div class="input-group">
+            <label>HỌ VÀ TÊN</label>
+            <input type="text" id="name" placeholder="Ví dụ: Trần Phú Phàm">
+        </div>
+
+        <div class="input-group">
+            <label>MÃ SINH VIÊN</label>
+            <input type="text" id="mssv" placeholder="Ví dụ: PC09572">
+        </div>
+
+        <div class="input-group">
+            <label>EMAIL SINH VIÊN</label>
+            <input type="email" id="email" placeholder="example@fpt.edu.vn">
+        </div>
+
+        <button onclick="createCard()">TẠO THẺ NGAY</button>
+    </div>
+
+    <script>
+        function createCard() {
+            const name = document.getElementById('name').value;
+            const mssv = document.getElementById('mssv').value;
+            const email = document.getElementById('email').value;
+            
+            if(!name || !mssv || !email) {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            const now = new Date();
+            // Định dạng ngày DD/MM/YYYY
+            const dateStr = String(now.getDate()).padStart(2, '0') + '/' + 
+                          String(now.getMonth() + 1).padStart(2, '0') + '/' + 
+                          now.getFullYear();
+
+            const url = `card.html?n=${encodeURIComponent(name)}&m=${encodeURIComponent(mssv)}&e=${encodeURIComponent(email)}&d=${encodeURIComponent(dateStr)}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
